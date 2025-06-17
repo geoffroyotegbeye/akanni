@@ -8,6 +8,8 @@ import Contact from './components/Contact';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import ChatWidget from './components/ChatWidget';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Projects from './components/Projects';
 
 function App() {
   const [activeSection, setActiveSection] = useState('accueil');
@@ -52,31 +54,38 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header activeSection={activeSection} onNavigate={scrollToSection} />
-      <main>
-        <section id="accueil">
-          <Hero onNavigate={scrollToSection} />
-        </section>
-        <section id="apropos">
-          <About />
-        </section>
-        <section id="services">
-          <Services />
-        </section>
-        <section id="portfolio">
-          <Portfolio onNavigate={scrollToSection} />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
-        <section id="faq">
-          <FAQ onNavigate={scrollToSection} onOpenChat={openChat} />
-        </section>
-      </main>
-      <Footer onNavigate={scrollToSection} />
-      <ChatWidget isOpen={isChatOpen} onToggle={toggleChat} />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={
+          <div className="min-h-screen bg-white">
+            <Header activeSection={activeSection} onNavigate={scrollToSection} />
+            <main>
+              <section id="accueil">
+                <Hero onNavigate={scrollToSection} />
+              </section>
+              <section id="apropos">
+                <About />
+              </section>
+              <section id="services">
+                <Services />
+              </section>
+              <section id="portfolio">
+                <Portfolio onNavigate={scrollToSection} />
+              </section>
+              <section id="contact">
+                <Contact />
+              </section>
+              <section id="faq">
+                <FAQ onNavigate={scrollToSection} onOpenChat={openChat} />
+              </section>
+            </main>
+            <Footer onNavigate={scrollToSection} />
+            <ChatWidget isOpen={isChatOpen} onToggle={toggleChat} />
+          </div>
+        } />
+        <Route path="/projects" element={<Projects />} />
+      </Routes>
+    </Router>
   );
 }
 
